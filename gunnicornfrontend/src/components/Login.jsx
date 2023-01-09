@@ -1,14 +1,16 @@
 import { useRef, useState, useEffect, useContext } from "react"
-import AuthContext from '../context/AuthProvider'
 
-import axios from './api/axios'
-const LOGIN_URL = ''
+import axios from 'axios'
+import { Navigate, useNavigate } from "react-router-dom"
+import Register from './Registration'
+
+const LOGIN_URL = 'localhost:3000/login'
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext)
+    // const { setAuth } = useContext(AuthContext)
     const userRef = useRef()
     const errRef = useRef()
-
+    const navigate = useNavigate()
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
@@ -28,6 +30,7 @@ const Login = () => {
         setUser('')
         setPwd('')
         setSuccess(true)
+        navigate('localhost:3000')
     }
 
     return (
@@ -45,10 +48,10 @@ const Login = () => {
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Sign In</h1>
                 <form>
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="email">Email:</label>
                     <input 
                         type="text" 
-                        id="username"
+                        id="email"
                         ref={userRef}
                         autoComplete="off"
                         onChange={(e) => setUser(e.target.value)}
@@ -69,7 +72,7 @@ const Login = () => {
                     Need an Account?<br />
                     <span className="line">
                         {/* put router link here */}
-                        <a href="#">Sign Up</a>                     
+                        <a href='/register'>Sign Up</a>                     
                     </span>
                 </p>
             </section>
