@@ -27,7 +27,7 @@ function App() {
         </div>
       </nav>
       
-      <Routes>
+      <Routes className='components'>
         <Route path="/" element={<Landing/>} />
 
         <Route path="/boards" element={<Boards/>} />
