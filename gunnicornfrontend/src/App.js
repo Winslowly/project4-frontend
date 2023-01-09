@@ -16,13 +16,15 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <Router>
-      <nav>
+      <nav className='navbar'>
         <h1>Gunnicorn Skateboards</h1>
-        <Link to="/"> Landing </Link>
-        <Link to="/boards"> Boards </Link>
-        <Link to="/softgoods"> Softgoods </Link>
-        <Link to="/team"> Team </Link>
-        <Link to="/media"> Media </Link>
+        <div className='navlinks'>
+          <Link to="/" ><i class="fa-solid fa-house"></i> Landing.</Link>
+          <Link to="/boards"><i class="fa-solid fa-horse"></i> Boards. </Link>
+          <Link to="/softgoods"><i class="fa-solid fa-shirt"></i> Softgoods. </Link>
+          <Link to="/team"><i class="fa-solid fa-people-group"></i> Team. </Link>
+          <Link to="/media"><i class="fa-solid fa-video"></i> Media. </Link>
+        </div>
       </nav>
       
       <Routes>
