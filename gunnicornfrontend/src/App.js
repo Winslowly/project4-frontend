@@ -34,22 +34,21 @@ const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
 
   return (
     <Router>
-      <nav>
+      <nav className='navbar'>
         <h1>Gunnicorn Skateboards</h1>
-      
-        <Link to="/">Landing</Link>
-        <Link to="/boards">Boards</Link>
-        <Link to="/softgoods">Softgoods</Link>
-        <Link to="/team">Team</Link>
-        <Link to="/media">Media</Link>
-        <Link to="/register">Sign Up</Link>
-        <Link to="/login">Log In</Link>
-        {/* Maybe we can wrap this in html so it's just the favicon of the cart? */}
+            
+        <div className='navlinks'>
+          <Link to="/" ><i class="fa-solid fa-house"></i> Landing.</Link>
+          <Link to="/boards"><i class="fa-solid fa-horse"></i> Boards. </Link>
+          <Link to="/softgoods"><i class="fa-solid fa-shirt"></i> Softgoods. </Link>
+          <Link to="/team"><i class="fa-solid fa-people-group"></i> Team. </Link>
+          <Link to="/media"><i class="fa-solid fa-video"></i> Media. </Link>
+                  {/* Maybe we can wrap this in html so it's just the favicon of the cart? */}
         <Link to="/cart">Your Cart</Link>
-      
+        </div>
       </nav>
       
-      <Routes>
+      <Routes className='components'>
         <Route path="/" element={<Landing/>} />
 
         <Route path="/boards" element={<Boards/>} />
