@@ -1,18 +1,19 @@
 import { useRef, useState, useEffect } from 'react'
-import './index.css'
-import axios from './api/axios'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-// Regex for username that expects an alphabetic char for the first char followed by upper and lowercase chars, 0-9, and hyphens and underscores between 3 and 23 characters in length.
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
+// Regex for email 
+const USER_REGEX = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
 // Regex for password that allows upper and lowercase alphabet chars, digits 0-9, some special chars, and is between 8 - 24 chars in length.
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
-const REGISTER_URL = '/register'
+const REGISTER_URL = 'https://gunnicornskateboards.herokuapp.com/api/register'
 
 const Register = () => {
     //Allows us to set the focus on user input when the component loads
     const userRef = useRef()
     //If we get an error this will allow us to put the focus on that so it can be announced by a screen reader for accesibility
     const errRef = useRef()
+    const navigate = useNavigate()
 
 
     //State tied to user input
@@ -84,6 +85,7 @@ const Register = () => {
         console.log(response.accessToken)
         console.log(JSON.stringify(response))
         setSuccess(true)
+        navigate('/')
         // good place to clear the input fields out of the registration fields.. set state back to empty strings
         } catch (err) {
             if (!err?.response) {
@@ -102,14 +104,14 @@ const Register = () => {
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Register</h1>
             <form onSubmit={handleSubmit}>
-            {/* username input */}
-                    <label htmlFor="username">
-                        Username:
+            {/* email input */}
+                    <label htmlFor="email">
+                        Email:
                         {/* Add fontAwesome icon spans here */}
                     </label>
                     <input
                             type= "text"
-                            id= "username"
+                            id= "email"
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setUser(e.target.value)}
@@ -175,7 +177,7 @@ const Register = () => {
             Already Registered?<br />
             <span className='line'>
                 {/*put router link here*/}
-                <a href="#">Sign In</a>
+                <a href='/login'>Sign In</a>
             </span>
         </p>
         </section>
