@@ -4,18 +4,18 @@ import axios from 'axios'
 import { Navigate, useNavigate } from "react-router-dom"
 import Register from './Registration'
 
-const LOGIN_URL = 'localhost:3000/login'
+const LOGIN_URL = 'https://gunnicornskateboards.herokuapp.com/api/login'
 
 const Login = () => {
     // const { setAuth } = useContext(AuthContext)
     const userRef = useRef()
     const errRef = useRef()
     const navigate = useNavigate()
-    const [user, setUser] = useState('')
-    const [pwd, setPwd] = useState('')
+    const [email, setUser] = useState('')
+    const [password, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const [success, setSuccess] = useState(false)
-
+    const [userData, setUserData] = useState({})
 
     useEffect(() => {
         userRef.current.focus()
@@ -23,14 +23,37 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg('')
-    },[user,pwd])
+    },[email,password])
 
     const handleSubmit = async (e) => {
-        e.preventdefault()
+        e.preventDefault()
+        try {
+            const response = await axios.put(LOGIN_URL, JSON.stringify({ email, password }),
+            {
+                headers: { 'Content-Type': 'application/json'},
+                withCredentials: false
+            }
+        ).then((response) => setUserData(response.data))
+        console.log(response.data)
+        // console.log(response.accessToken)
+        console.log(JSON.stringify(response))
         setUser('')
         setPwd('')
         setSuccess(true)
-        navigate('localhost:3000')
+        navigate('/')
+
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No server Response')
+            } else if (err.response?.status === 401) {
+                setErrMsg('Incorrect Login Credentials')
+            } else {
+                setErrMsg('Login Failed')
+            }
+            errRef.current.focus()
+
+        }
+        console.log(success)
     }
 
     return (
@@ -40,7 +63,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="#">Go to Home</a>
+                        <a href="/">Go to Home</a>
                     </p>
                 </section>
             ) : (
@@ -55,7 +78,7 @@ const Login = () => {
                         ref={userRef}
                         autoComplete="off"
                         onChange={(e) => setUser(e.target.value)}
-                        value={user}
+                        value={email}
                         required 
                     />
                     <label htmlFor="password">Password:</label>
@@ -63,7 +86,7 @@ const Login = () => {
                         type="password" 
                         id="password"
                         onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
+                        value={password}
                         required 
                     />
                     <button>Sign In</button>

@@ -15,17 +15,28 @@ import Register from "./components/Registration"
 import Login from "./components/Login"
 import Cart from "./components/Cart"
 
+const App = () => {
+const [customer, setCustomer] = useState({})
+const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
 
-function App() {
+// I think I need a get request here to pull id props after login
+  const activeSession = () => {
+    axios.get(baseURL )
+    // .then((response) => setSomething(response.data))
+  }
+
+// A universal add button for order post. I'll add the prop passing for us -CA
+  const addButton = (props) => {
+      axios.post(baseURL + '/order/' + customer.id)
+      
+  }
+
+
   return (
     <Router>
       <nav>
         <h1>Gunnicorn Skateboards</h1>
-        <Link to="/"> Landing </Link>
-        <Link to="/boards"> Boards </Link>
-        <Link to="/softgoods"> Softgoods </Link>
-        <Link to="/team"> Team </Link>
-        <Link to="/media"> Media </Link>
+      
         <Link to="/">Landing</Link>
         <Link to="/boards">Boards</Link>
         <Link to="/softgoods">Softgoods</Link>

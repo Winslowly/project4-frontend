@@ -20,6 +20,7 @@ const Cart = () => {
         },[])
 
     return (
+        // check login: if false print please login or redirect to login if true but empty print your shopping cart is empty else ->
         <div className='card'>
             {order.map((product) => {
                 return(            
