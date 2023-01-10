@@ -21,7 +21,7 @@ const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
 
 // I think I need a get request here to pull id props after login
   const activeSession = () => {
-    axios.get(baseURL )
+    axios.put(baseURL + '/login')
     // .then((response) => setSomething(response.data))
   }
 
@@ -45,15 +45,21 @@ const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
           <Link to="/media"><i class="fa-solid fa-video"></i> Media. </Link>
                   {/* Maybe we can wrap this in html so it's just the favicon of the cart? */}
         <Link to="/cart">Your Cart</Link>
+        <Link to='/login'>Log In</Link>
+        <Link to='/register'>Sign Up</Link>
         </div>
       </nav>
       
       <Routes className='components'>
         <Route path="/" element={<Landing/>} />
 
+      <UserInfoContext.Provider value={userData}>
         <Route path="/boards" element={<Boards/>} />
 
         <Route path="/softgoods" element={<Softgoods/>} />
+
+        <Route path="/cart" element={<Cart/>} />
+      </UserInfoContext.Provider>
 
         <Route path="/team" element={<Team/>} />
 
@@ -62,8 +68,6 @@ const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
         <Route path="/register" element={<Register/>} />
 
         <Route path="/login" element={<Login/>} />
-
-        <Route path="/cart" element={<Cart/>} />
 
         <Route path="*" element={<Error/>} />
 

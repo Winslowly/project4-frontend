@@ -2,12 +2,13 @@ import { useRef, useState, useEffect, useContext } from "react"
 
 import axios from 'axios'
 import { Navigate, useNavigate } from "react-router-dom"
-import Register from './Registration'
+
 
 const LOGIN_URL = 'https://gunnicornskateboards.herokuapp.com/api/login'
 
 const Login = () => {
-    // const { setAuth } = useContext(AuthContext)
+    const userData = useContext(AuthContext)
+
     const userRef = useRef()
     const errRef = useRef()
     const navigate = useNavigate()
@@ -15,7 +16,7 @@ const Login = () => {
     const [password, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const [success, setSuccess] = useState(false)
-    const [userData, setUserData] = useState({})
+    // const [userData, setUserData] = useState({})
 
     useEffect(() => {
         userRef.current.focus()
