@@ -2,17 +2,18 @@ import { useRef, useState, useEffect, useContext } from "react"
 
 import axios from 'axios'
 import { Navigate, useNavigate } from "react-router-dom"
-import Register from './Registration'
+import { UserInfoContext } from "../context/UserInfoContext"
 
-const LOGIN_URL = 'localhost:3000/login'
+
+const LOGIN_URL = 'https://gunnicornskateboards.herokuapp.com/api/login'
 
 const Login = () => {
-    // const { setAuth } = useContext(AuthContext)
+    const {userData, setUserData} = useContext(UserInfoContext)
     const userRef = useRef()
     const errRef = useRef()
     const navigate = useNavigate()
-    const [user, setUser] = useState('')
-    const [pwd, setPwd] = useState('')
+    const [email, setUser] = useState('')
+    const [password, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const [success, setSuccess] = useState(false)
 
@@ -23,16 +24,38 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg('')
-    },[user,pwd])
+    },[email,password])
 
     const handleSubmit = async (e) => {
-        e.preventdefault()
+        e.preventDefault()
+        // axios.put(LOGIN_URL, {email, password})
+        // .then((response) => {setUserData(response.data)})
+        try {
+            const response = await axios.put(LOGIN_URL, JSON.stringify({ email, password }),{
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: false
+            })
+            .then((response) => setUserData(response.data))
+        // console.log(response.data)
         setUser('')
         setPwd('')
         setSuccess(true)
-        navigate('localhost:3000')
-    }
+        // navigate('/')
 
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No server Response')
+            } else if (err.response?.status === 401) {
+                setErrMsg('Incorrect Login Credentials')
+            } else {
+                setErrMsg('Login Failed')
+            }
+            errRef.current.focus()
+
+        }
+        console.log(userData)
+    }
+// console.log(UserInfoContext)
     return (
         <>
             {success ? (
@@ -40,14 +63,14 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="#">Go to Home</a>
+                        <a href="/">Go to Home</a>
                     </p>
                 </section>
             ) : (
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Sign In</h1>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="email">Email:</label>
                     <input 
                         type="text" 
@@ -55,7 +78,7 @@ const Login = () => {
                         ref={userRef}
                         autoComplete="off"
                         onChange={(e) => setUser(e.target.value)}
-                        value={user}
+                        value={email}
                         required 
                     />
                     <label htmlFor="password">Password:</label>
@@ -63,7 +86,7 @@ const Login = () => {
                         type="password" 
                         id="password"
                         onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
+                        value={password}
                         required 
                     />
                     <button>Sign In</button>
@@ -82,3 +105,4 @@ const Login = () => {
 }
 
 export default Login
+
