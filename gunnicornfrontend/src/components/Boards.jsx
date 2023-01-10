@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import {useState, useEffect} from 'react';
-
+import AddToCart from './AddCart';
 
 
 function Boards() {
@@ -31,7 +31,7 @@ function Boards() {
                         <img className='img' src={board.image} />
                         <p className='description'>{board.description}</p>
                         <p className='price'>${board.price}</p>
-                        {/* <button onClick={<addButton/>}></button> */}
+                        <button onClick={<AddToCart/>}>Add To Cart</button>
                     </div>
                 )
             })}
