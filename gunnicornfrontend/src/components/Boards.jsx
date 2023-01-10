@@ -32,6 +32,7 @@ function Boards() {
                         <p className='description'>{board.description}</p>
                         <p className='price'>${board.price}</p>
                         {/* <button onClick={<addButton/>}></button> */}
+                        <button>Add to Cart</button>
                     </div>
                 )
             })}
