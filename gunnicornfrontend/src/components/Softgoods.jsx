@@ -8,18 +8,26 @@ function Softgoods() {
 
     const [product, setProduct] = useState([]);
 
-    const url = 'https://gunnicornskateboards.herokuapp.com/api';
+    const url = 'https://gunnicornskateboards.herokuapp.com/api/goods';
+
+    const handleDelete = (badGood) => {
+        axios.delete(url + `/${badGood.id}`)
+        .then((response) => {
+            getGud()
+        })
+      }
+
+     const getGud = () => {
+        axios.get(url)
+        .then((response)=>{
+            setProduct(response.data);
+        })
+     } 
 
         useEffect(()=>{
-        axios.get(url + '/goods')
-            .then((response)=>{
-                setProduct(response.data);
-            })
+            getGud()
         },[])
 
-    // const getAllProducts = () => {
-    //     axios.get('$(url)products')
-    // }
 
 
     return (
@@ -31,6 +39,7 @@ function Softgoods() {
                         <img className='img' src={softgoods.image} />
                         <p className='description'>{softgoods.description}</p>
                         <p className='price'>${softgoods.price}</p>
+                        <button onClick={() => {handleDelete(softgoods)}}>Delete</button>
                     </div>
                 )
             })}

@@ -19,7 +19,9 @@ const App = () => {
 const [userData, setUserData ] = useState(null)
 const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
 
-
+const handleDelete = (props) => {
+  axios.delete(baseURL + `/${props.id}`)
+}
 
   return (
     <Router>
