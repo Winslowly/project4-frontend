@@ -9,7 +9,7 @@ const Cart = () => {
 
     const getOrder = () => {
         // How do I find the id beforehand to pull in for the url?
-        axios.get(baseURL + '/order/<int:pk>')
+        axios.get(baseURL + '/order/')
         .then((res) => {
             setOrder(res.data)
         })
@@ -30,6 +30,7 @@ const Cart = () => {
                         <p className='description'>{product.description}</p>
                         <p className='price'>${product.price}</p>
                         {/* add the plus/minus box here */}
+                        {/* add delete button here */}
                     </div>
                 )
             })}
