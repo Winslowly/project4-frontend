@@ -18,6 +18,7 @@ text-align: left;
 .card{
   position:top -40px ;
   display:flex;
+  flex-wrap: wrap;
   margin: 5px;
   padding: 20px;
   justify-content: space-between;
@@ -29,18 +30,22 @@ text-align: left;
   box-shadow: 0 2px 25px ;
   border-radius: 20px;
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between;
+  justify-content: space-around; */
   cursor: pointer;
   transition:transform 200ms eas;
   width: 25%;
 }
 
-img{
+.img{
   height: auto;
   width: 80%;
   object-fit: cover;
+
 }
+

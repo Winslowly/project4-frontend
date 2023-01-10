@@ -40,8 +40,13 @@ function Boards() {
                         <img className='img' src={board.image} />
                         <p className='description'>{board.description}</p>
                         <p className='price'>${board.price}</p>
+<<<<<<< HEAD
+                        {/* <button onClick={<addButton/>}></button> */}
+                        <button>Add to Cart</button>
+=======
                         <button onClick={<AddToCart/>}>Add To Cart</button>
                         <button onClick={() => {handleDelete(board)}}>Delete</button>
+>>>>>>> 0d3b325eb9d687393465f0d333f3411fd6a1c81a
                     </div>
                 )
             })}
