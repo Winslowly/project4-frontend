@@ -2,13 +2,13 @@ import { useRef, useState, useEffect, useContext } from "react"
 
 import axios from 'axios'
 import { Navigate, useNavigate } from "react-router-dom"
+import { UserInfoContext } from "../context/UserInfoContext"
 
 
 const LOGIN_URL = 'https://gunnicornskateboards.herokuapp.com/api/login'
 
 const Login = () => {
-    const userData = useContext(AuthContext)
-
+    const {userData, setUserData} = useContext(UserInfoContext)
     const userRef = useRef()
     const errRef = useRef()
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Login = () => {
     const [password, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const [success, setSuccess] = useState(false)
-    // const [userData, setUserData] = useState({})
+
 
     useEffect(() => {
         userRef.current.focus()
@@ -28,20 +28,19 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        // axios.put(LOGIN_URL, {email, password})
+        // .then((response) => {setUserData(response.data)})
         try {
-            const response = await axios.put(LOGIN_URL, JSON.stringify({ email, password }),
-            {
-                headers: { 'Content-Type': 'application/json'},
+            const response = await axios.put(LOGIN_URL, JSON.stringify({ email, password }),{
+                headers: {'Content-Type': 'application/json'},
                 withCredentials: false
-            }
-        ).then((response) => setUserData(response.data))
-        console.log(response.data)
-        // console.log(response.accessToken)
-        console.log(JSON.stringify(response))
+            })
+            .then((response) => setUserData(response.data))
+        // console.log(response.data)
         setUser('')
         setPwd('')
         setSuccess(true)
-        navigate('/')
+        // navigate('/')
 
         } catch (err) {
             if (!err?.response) {
@@ -54,9 +53,9 @@ const Login = () => {
             errRef.current.focus()
 
         }
-        console.log(success)
+        console.log(userData)
     }
-
+// console.log(UserInfoContext)
     return (
         <>
             {success ? (
@@ -106,3 +105,4 @@ const Login = () => {
 }
 
 export default Login
+
