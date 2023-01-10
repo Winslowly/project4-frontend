@@ -19,17 +19,6 @@ const App = () => {
 const [userData, setUserData ] = useState(null)
 const baseURL = "https://gunnicornskateboards.herokuapp.com/api"
 
-// I think I need a get request here to pull id props after login
-  const activeSession = () => {
-    axios.put(baseURL + '/login')
-    // .then((response) => setSomething(response.data))
-  }
-
-// A universal add button for order post. I'll add the prop passing for us -CA
-  // const addButton = (props) => {
-  //     axios.post(baseURL + '/order/' + customer.id)
-      
-  // }
 
 
   return (
