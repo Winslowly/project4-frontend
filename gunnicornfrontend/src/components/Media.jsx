@@ -9,6 +9,7 @@ function Media() {
             <iframe width="560" height="315" src="https://www.youtube.com/embed/amQZsu00D54" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             <h2>The Freshest of New Content</h2>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/fDL4gGNEKNw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <br></br>
         </div>
     )
 }
